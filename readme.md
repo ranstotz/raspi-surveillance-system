@@ -1,5 +1,5 @@
-Surveillance Project Data
-Author: Ryan Anstotz
+# Surveillance Project Data
+## Author: Ryan Anstotz
 
 The goal of this project is to use a Raspberry Pi 3+ to record a surveillance
 video feed. Then the Pi will send the video via HTTP stream to a separate
@@ -9,9 +9,9 @@ for the Pi will be written in Python using the OpenCV library for video
 recording and storage and an HTTP library for streaming. 
 
 
-# =============================================================================
-# OLD DATA
-#
+
+## OLD DATA
+
 Reference Website:
 https://tutorials-raspberrypi.com/raspberry-pi-security-camera-livestream-setup/
 
