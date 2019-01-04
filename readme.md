@@ -1,5 +1,17 @@
 Surveillance Project Data
+Author: Ryan Anstotz
 
+The goal of this project is to use a Raspberry Pi 3+ to record a surveillance
+video feed. Then the Pi will send the video via HTTP stream to a separate
+server. This server will store the video in 24 hour increments and provide
+accessibility to the stream via a password-protected website. The program will
+for the Pi will be written in Python using the OpenCV library for video
+recording and storage and an HTTP library for streaming. 
+
+
+# =============================================================================
+# OLD DATA
+#
 Reference Website:
 https://tutorials-raspberrypi.com/raspberry-pi-security-camera-livestream-setup/
 
@@ -8,14 +20,7 @@ sudo service motion start
 
 To stop:
 sudo service motion stop
-
-To restart:
-sudo service motion restart
-
 Data is stored as jpegs to the /home/pi/Monitor directory and streamed over
 the localhost (192.168.1.231:8081).
 
-Next step, send stream of images to Lightsail server. Then if requested, serve
-them live (slightly delayed), to the website (password protected). May need
-to build software for this. But once images saved on cloud, accessing them is
-next.
+# End of file
