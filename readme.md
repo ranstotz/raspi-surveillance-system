@@ -8,9 +8,13 @@ accessibility to the stream via a password-protected website. The program will
 for the Pi will be written in Python using the OpenCV library for video
 recording and storage and an HTTP library for streaming. 
 
+## A few References:
+https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
 
 
 ## OLD DATA
+
+This is for regular use of camera over localhost.
 
 Reference Website:
 https://tutorials-raspberrypi.com/raspberry-pi-security-camera-livestream-setup/
@@ -23,4 +27,4 @@ sudo service motion stop
 Data is stored as jpegs to the /home/pi/Monitor directory and streamed over
 the localhost (192.168.1.231:8081).
 
-# End of file
+
