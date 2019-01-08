@@ -11,6 +11,7 @@ recording and storage and an HTTP library for streaming.
 ## A few References:
 https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
 
+https://stackoverflow.com/questions/30988033/sending-live-video-over-network-in-python-opencv 
 
 ## OLD DATA
 
@@ -25,6 +26,6 @@ sudo service motion start
 To stop:
 sudo service motion stop
 Data is stored as jpegs to the /home/pi/Monitor directory and streamed over
-the localhost (192.168.1.231:8081).
+the localhost. 
 
 
