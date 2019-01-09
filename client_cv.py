@@ -20,25 +20,31 @@ import cv2
 # main function
 def main(argv):
 
-    # initialize socket connections
-    clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = socket.gethostbyname("localhost")
-    clientsocket.connect((host, 8089))
-    print "Socket initialized."
-
-    # initialize camera
-    camera = PiCamera()
-    print "Initialized camera."
-    
-    # set params
+    # set camera specs
     height = 640
     width = 480
-    camera.resolution = (640, 480)
-    camera.framerate = 32
-    rawCapture = PiRGBArray(camera, size=(640, 480))
+    framerate = 32
     
-    # warm up camera
+    # initialize and set camera
+    print "Initializing camera..."
+    camera = PiCamera()
+    camera.resolution = (height, width)
+    camera.framerate = framerate
+    rawCapture = PiRGBArray(camera, size=(height, width))
+    print "Camera initialized."
+    
+    # allow time for camera to warm-up
     time.sleep(0.2)
+
+    # socket parameters
+    HOST = socket.gethostbyname("localhost")
+    PORT = 8089
+   
+    # initialize socket connections
+    print "Initializing socket..."
+    clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    clientsocket.connect((HOST, PORT))
+    print "Socket initialized."
     
     # capture frames from camera
     for frame in camera.capture_continuous(rawCapture, format="bgr",
@@ -53,13 +59,6 @@ def main(argv):
         # send data over socket in binary form
         clientsocket.sendall(struct.pack("L", len(data))+data)
                 
-        '''
-        # not doing this since that will be server-side
-        # show the frame
-        cv2.imshow("Frame", image)
-        key = cv2.waitKey(1) & 0xFF
-        '''
-        
         # clear the stream in preparation for the next frame
         rawCapture.truncate(0)
 
@@ -71,4 +70,3 @@ if __name__ == "__main__":
     main(sys.argv[:])
 
 # end of file
-

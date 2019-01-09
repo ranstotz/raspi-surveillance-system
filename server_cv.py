@@ -20,28 +20,33 @@ import cv2
 # main function
 def main(argv):
 
-    # set host and port
+    # set host and port for socket
     HOST = ''
     PORT = 8089
     
     # initialize socket connections
+    print "Creating socket..."
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print "socket created"
+    print "Socket created."
 
+    # bind socket
     s.bind((HOST, PORT))
     print "Socket bind complete."
     s.listen(10)
     print "Socket now listening."
 
+    # accept connection
     conn, addr = s.accept()
-
-    # data prep
+    print "Socket connected to IP:", addr[0]
+    
+    # data prep. 'L' stands for unsigned long
     data = ""
     payload_size = struct.calcsize("L")
     
-    # accept data
-    while True:
+    # accept data continuously
+    while (1):
 
+        # get and process the payload
         while len(data) < payload_size:
             data += conn.recv(4096)
 
@@ -56,7 +61,7 @@ def main(argv):
         # load image
         image = pickle.loads(frame_data)
 
-        # show the frame
+        # display the stream
         cv2.imshow("Frame", image)
         key = cv2.waitKey(1) & 0xFF
 
@@ -72,4 +77,3 @@ if __name__ == "__main__":
     main(sys.argv[:])
 
 # end of file
-
