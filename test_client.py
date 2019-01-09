@@ -1,13 +1,17 @@
 # Surveillance Project
-# File: test_video.py
+# File: test_client.py
 # Author: Ryan Anstotz
 # Description:
-#  Displays a video from the camera
+#  Test a client socket connection
 # =================================================================================
 
 # import necessary packages
 import os
 import sys
+import numpy as np
+import socket
+import pickle
+import struct
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time 
@@ -15,6 +19,16 @@ import cv2
 
 # main function
 def main(argv):
+
+    # create client socket
+    clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    clientsocket.connect(('localhost', 8089))
+    print "Socket connected"
+
+    # try this in realtime.. come back if fails
+    
+    """
+    # ignore all video related stuff...
 
     # initialize camera
     camera = PiCamera()
@@ -48,7 +62,7 @@ def main(argv):
         if key == ord("q"):
             break
     
-
+    """
     
     # return from main
     return

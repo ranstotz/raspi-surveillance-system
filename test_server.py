@@ -1,8 +1,8 @@
 # Surveillance Project
-# File: test_video.py
+# File: client_cv.py
 # Author: Ryan Anstotz
 # Description:
-#  Displays a video from the camera
+#  Records video to send to a server
 # =================================================================================
 
 # import necessary packages
