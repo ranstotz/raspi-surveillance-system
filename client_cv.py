@@ -3,6 +3,7 @@
 # Author: Ryan Anstotz
 # Description:
 #  Records video to send to a server
+#  *** Please note to run server code prior to this script ***
 # =================================================================================
 
 # import necessary packages
