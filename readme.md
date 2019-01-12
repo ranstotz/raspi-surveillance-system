@@ -12,8 +12,12 @@ recording and storage and an HTTP library for streaming.
 Camera currently streams frames via socket over the localhost. A client
 and server script are used for this implementation.
 
+Immediate goal is to test json config file. Then work with ports on router.
+
 Next goal is to send data to web server, store frames in 24-hour increments
 and allow live streaming on website when requested.
+
+
 
 ## A few References:
 https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
