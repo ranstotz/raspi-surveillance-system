@@ -1,9 +1,10 @@
 # Surveillance Project
-# File: client_cv.py
+# File: client_live.py
 # Author: Ryan Anstotz
 # Description:
 #  Records video to send to a server
 #  *** Please note to run server code prior to this script ***
+#
 # =================================================================================
 
 # import necessary packages
@@ -18,6 +19,9 @@ from picamera import PiCamera
 import time 
 import cv2
 import json
+
+# import functions/classes
+from config import *
 
 # main function
 def main(argv):
@@ -44,6 +48,9 @@ def main(argv):
     HOST, PORT = parse_config(data_file, script_type)
     host = '18.214.123.134'
     port = 5050
+
+    print HOST, PORT
+    print host, port
    
     # initialize socket connections
     print "Initializing socket..."
@@ -70,18 +77,7 @@ def main(argv):
     # return from main
     return
 
-# function to parse configuration json
-def parse_config(config_file, script_type):
-    client = "client"
-    server = "server"
-    with open(config_file, 'r') as fp:
-        data = json.load(f)
-    if script_type == client:
-        return data[client_ip], data[client_port]
-    if script_type == server:
-        return data[server_ip], data[server_port]
 
-    return "error in parse_config"
 
 # execute 
 if __name__ == "__main__":

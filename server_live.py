@@ -17,12 +17,25 @@ import struct
 import time 
 import cv2
  
+# import functions/classes
+from config import *
+
 # main function
 def main(argv):
 
+    
     # set host and port for socket
-    HOST = '71.175.97.72'
-    PORT = 5050
+    host = '71.175.97.72'
+    port = 5050
+    
+    # socket parameters
+    script_type = "server"
+    data_file = argv[1]
+    HOST, PORT = parse_config(data_file, script_type)
+
+    print HOST, PORT, type(HOST), type(PORT)
+    print host, port, type(host), type(port)
+
     
     # initialize socket connections
     print "Creating socket..."
