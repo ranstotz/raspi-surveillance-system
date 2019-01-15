@@ -20,6 +20,14 @@ and allow live streaming on website when requested.
 
 
 ## A few References:
+
+Router IP:
+https://stackoverflow.com/questions/19246103/socket-errorerrno-99-cannot-assign-requested-address-and-namespace-in-python
+
+Verizon router ref:
+https://forums.verizon.com/t5/Fios-Internet/Help-with-IP-Cameras-to-port-forward-Verizon-router/td-p/835700
+
+
 https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
 
 https://stackoverflow.com/questions/30988033/sending-live-video-over-network-in-python-opencv 
