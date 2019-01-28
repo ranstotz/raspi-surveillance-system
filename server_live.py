@@ -32,10 +32,12 @@ def main(argv):
     script_type = "server"
     data_file = argv[1]
     HOST, PORT = parse_config(data_file, script_type)
+    HOST = ''
+    print "HOST IP: ", HOST
+    print "Port: ", PORT
 
-    print HOST, PORT, type(HOST), type(PORT)
-    print host, port, type(host), type(port)
-
+    print "Host type: ", type(HOST)
+    print "Port type: ", type(PORT)
     
     # initialize socket connections
     print "Creating socket..."
@@ -54,8 +56,9 @@ def main(argv):
     
     # data prep. 'L' stands for unsigned long
     data = ""
-    payload_size = struct.calcsize("L")
-
+    payload_size = struct.calcsize("=L")
+    print "payload_size is: ", payload_size
+    
     # a test flag that will print something upon success
     accepted_flag = False
     
@@ -65,18 +68,22 @@ def main(argv):
         # get and process the payload
         while len(data) < payload_size:
             data += conn.recv(4096)
-
+        print "len of data is: ", len(data)
+        
         packed_msg_size = data[:payload_size]
         data = data[payload_size:]
-        msg_size = struct.unpack("L", packed_msg_size)[0]
+        msg_size = struct.unpack("=L", packed_msg_size)[0]
+
+        print "len of msg_size is: ", msg_size
         while len(data) < msg_size:
             data += conn.recv(4096)
+
         frame_data = data[:msg_size]
         data = data[msg_size:]
 
         # load image
         image = pickle.loads(frame_data)
-
+        print "it makes it past a pickle"
         if accepted_flag == False:
             accepted_flag = True
             print "*** the code appears to have worked ***"
