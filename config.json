@@ -2,6 +2,6 @@
     "_comment": "Client/server surveillance system json config.",
     "client_port": "5050",
     "server_port": "5050",
-    "client_ip": "71.175.97.72",
+    "client_ip": "68.82.176.156",
     "server_ip": "18.214.123.134"
 }

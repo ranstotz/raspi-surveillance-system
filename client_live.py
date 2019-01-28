@@ -43,24 +43,32 @@ def main(argv):
     time.sleep(0.2)
 
     # socket parameters
-    script_type = "client"
+    script_type = "server"
     data_file = argv[1]
     HOST, PORT = parse_config(data_file, script_type)
     host = '18.214.123.134'
     port = 5050
 
-    print HOST, PORT
-    print host, port
+    print "Host IP: ", HOST
+    print "at Port: ", PORT
+
    
     # initialize socket connections
     print "Initializing socket..."
     clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     clientsocket.connect((HOST, PORT))
     print "Socket initialized."
+
+    test_flag = False
     
     # capture frames from camera
     for frame in camera.capture_continuous(rawCapture, format="bgr",
                                            use_video_port=True):
+
+        if test_flag == False:
+            print "capturing images..."
+            test_flag = True
+            
         # grab raw Numpy array representing the image, then
         # initialize timestamp and text
         image = frame.array
