@@ -77,7 +77,7 @@ def main(argv):
         data = pickle.dumps(image)
 
         # send data over socket in binary form
-        clientsocket.sendall(struct.pack("L", len(data))+data)
+        clientsocket.sendall(struct.pack("=L", len(data))+data)
                 
         # clear the stream in preparation for the next frame
         rawCapture.truncate(0)

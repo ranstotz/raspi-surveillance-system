@@ -42,6 +42,9 @@ def main(argv):
     # data prep. 'L' stands for unsigned long
     data = ""
     payload_size = struct.calcsize("L")
+    print "payload_size is: ", payload_size
+    
+    one_time = False
     
     # accept data continuously
     while (1):
@@ -49,10 +52,17 @@ def main(argv):
         # get and process the payload
         while len(data) < payload_size:
             data += conn.recv(4096)
-
+        if one_time == False:
+            print "len of data is: ", len(data)
+            
         packed_msg_size = data[:payload_size]
         data = data[payload_size:]
         msg_size = struct.unpack("L", packed_msg_size)[0]
+
+        if one_time == False:
+            print "len of msg_size is: ", msg_size
+            one_time = True
+            
         while len(data) < msg_size:
             data += conn.recv(4096)
         frame_data = data[:msg_size]
