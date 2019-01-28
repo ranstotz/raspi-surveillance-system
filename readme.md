@@ -12,11 +12,16 @@ recording and storage and an HTTP library for streaming.
 Camera currently streams frames via socket over the localhost. A client
 and server script are used for this implementation.
 
-Immediate goal is to test json config file. Then work with ports on router.
-
 Next goal is to send data to web server, store frames in 24-hour increments
 and allow live streaming on website when requested.
 
+Currently have a "working" model. Socket is created from server to client.
+Some sort of data is transmitted, however the data appears to be
+coming in slowly from first glance. Also, the struct 32 vs 64 bit was
+resolved by changing the "L" to "=L".
+
+Next, the images will need to be saved, then rsync'd to my local
+machine for examination. More debugging required.
 
 
 ## A few References:
