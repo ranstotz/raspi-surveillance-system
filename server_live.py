@@ -89,6 +89,10 @@ def main(argv):
             print "*** the code appears to have worked ***"
             print " this is the first row of the image array "
             print image[0]
+
+
+        cv2.imwrite("image.png", image)
+        break
         '''
         # display the stream
         cv2.imshow("Frame", image)
