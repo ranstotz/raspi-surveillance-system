@@ -30,9 +30,8 @@ def main(argv):
     
     # socket parameters
     script_type = "server"
-    data_file = argv[1]
-    HOST, PORT = parse_config(data_file, script_type)
     HOST = ''
+    PORT = 5050
     print "HOST IP: ", HOST
     print "Port: ", PORT
 
