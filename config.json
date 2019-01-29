@@ -1,7 +1,0 @@
-{
-    "_comment": "Client/server surveillance system json config.",
-    "client_port": "5050",
-    "server_port": "5050",
-    "client_ip": "10.0.0.26",
-    "server_ip": "18.214.123.134"
-}
