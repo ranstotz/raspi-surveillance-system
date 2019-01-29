@@ -41,7 +41,7 @@ def main(argv):
     
     # data prep. 'L' stands for unsigned long
     data = ""
-    payload_size = struct.calcsize("L")
+    payload_size = struct.calcsize("=L")
     print "payload_size is: ", payload_size
     
     one_time = False
@@ -52,13 +52,16 @@ def main(argv):
         # get and process the payload
         while len(data) < payload_size:
             data += conn.recv(4096)
+        print "len of data is: ", len(data)
+        
         if one_time == False:
             print "len of data is: ", len(data)
             
         packed_msg_size = data[:payload_size]
         data = data[payload_size:]
-        msg_size = struct.unpack("L", packed_msg_size)[0]
-
+        msg_size = struct.unpack("=L", packed_msg_size)[0]
+        print "len of message size is: ", msg_size
+        
         if one_time == False:
             print "len of msg_size is: ", msg_size
             one_time = True
@@ -67,7 +70,8 @@ def main(argv):
             data += conn.recv(4096)
         frame_data = data[:msg_size]
         data = data[msg_size:]
-
+        print "about to pickle!"
+        
         # load image
         image = pickle.loads(frame_data)
 

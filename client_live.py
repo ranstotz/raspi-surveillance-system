@@ -45,18 +45,18 @@ def main(argv):
     # socket parameters
     script_type = "server"
     data_file = argv[1]
-    HOST, PORT = parse_config(data_file, script_type)
+    #HOST, PORT = parse_config(data_file, script_type)
     host = '18.214.123.134'
     port = 5050
 
-    print "Host IP: ", HOST
-    print "at Port: ", PORT
+    print "Host IP: ", host
+    print "at Port: ", port
 
    
     # initialize socket connections
     print "Initializing socket..."
     clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    clientsocket.connect((HOST, PORT))
+    clientsocket.connect((host, port))
     print "Socket initialized."
 
     test_flag = False
