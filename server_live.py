@@ -60,7 +60,7 @@ def main(argv):
     
     # a test flag that will print something upon success
     accepted_flag = False
-    
+    count = 0
     # accept data continuously
     while (1):
 
@@ -89,9 +89,11 @@ def main(argv):
             print " this is the first row of the image array "
             print image[0]
 
-
-        cv2.imwrite("image.png", image)
-        break
+        filename = "image" + str(count) + ".png"
+        cv2.imwrite(filename, image)
+        count += 1
+        if count > 5:
+            break
         '''
         # display the stream
         cv2.imshow("Frame", image)
