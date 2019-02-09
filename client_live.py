@@ -29,7 +29,7 @@ def main(argv):
     # set camera specs
     height = 640
     width = 480
-    framerate = 32
+    framerate = 20
     
     # initialize and set camera
     print "Initializing camera..."
@@ -44,7 +44,7 @@ def main(argv):
 
     # socket parameters
     script_type = "server"
-    data_file = argv[1]
+    #data_file = argv[1]
     #HOST, PORT = parse_config(data_file, script_type)
     host = '18.214.123.134'
     port = 5050

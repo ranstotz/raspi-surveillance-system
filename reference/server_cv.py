@@ -42,13 +42,13 @@ def main(argv):
     # data prep. 'L' stands for unsigned long
     data = ""
     payload_size = struct.calcsize("=L")
-    print "payload_size is: ", payload_size
+    print "payload_size is: ", sys.getsizeof(payload_size)
     
     one_time = False
     
     # accept data continuously
     while (1):
-
+        
         # get and process the payload
         while len(data) < payload_size:
             data += conn.recv(4096)
