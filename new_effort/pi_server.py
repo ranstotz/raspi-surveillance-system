@@ -10,21 +10,20 @@ class serverViewer(object):
         self.port = port
         self.footage_socket = ""
         
-    def initialize_server(self):
         print "Initiallizing context and socket."
-        context = zmq.Context()
-        footage_socket = context.socket(zmq.SUB)
+        self.context = zmq.Context()
+        self.footage_socket = context.socket(zmq.SUB)
         print type(footage_socket)
         print "Context and socket initialized. \nBinding to port."
-        footage_socket.bind('tcp://*:5050')
-        footage_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
+        self.footage_socket.bind('tcp://*:5050')
+        self.footage_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
         print "Port initialized.\n"
 
     def capture_stream(self):
         connectionFlag = False
         while True:
             try:
-                frame = footage_socket.recv_string()
+                frame = self.footage_socket.recv_string()
                 if connectionFlag == False:
                     print "Connection made. Now streaming.\n"
                     connectionFlag = True

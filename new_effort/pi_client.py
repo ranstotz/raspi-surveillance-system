@@ -9,40 +9,39 @@ class clientStreamer(object):
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.footage_socket = ""
 
-    def initialize_client(self):
         print "Initiallizing context and socket."
-        context = zmq.Context()
-        footage_socket = context.socket(zmq.PUB)
+        self.context = zmq.Context()
+        self.footage_socket = context.socket(zmq.PUB)
         print type(footage_socket)
         print "Context and socket initialized. \nBinding to port."
-        #footage_socket.connect('tcp://localhost:5555')
-        footage_socket.connect('tcp://18.214.123.134:5050')
+        self.footage_socket.connect('tcp://18.214.123.134:5050')
         print "Port initialized.\n"
-
+        self.camera = ""
+        self.rawCapture = ""
+        
     def start_camera(self):
         print "Initializing camera."
-        camera = PiCamera()
-        camera.resolution = (640, 480)
-        camera.framerate = 32
-        rawCapture = PiRGBArray(camera, size=(640, 480))
+        self.camera = PiCamera()
+        self.camera.resolution = (640, 480)
+        self.camera.framerate = 32
+        self.rawCapture = PiRGBArray(camera, size=(640, 480))
         time.sleep(0.1) # Warm up camera
         print "Camera initialized."
     
     def begin_stream(self):
         
-        for frame in camera.capture_continuous(rawCapture, format="bgr",
+        for frame in self.camera.capture_continuous(self.rawCapture, format="bgr",
                                                use_video_port=True):
             try:
                 image = frame.array
                 encoded, buffer = cv2.imencode('.jpg', image)
                 jpg_as_text = base64.b64encode(buffer)
-                footage_socket.send(jpg_as_text)
+                self.footage_socket.send(jpg_as_text)
                 rawCapture.truncate(0)
                 
             except KeyboardInterrupt:
-                camera.release()
+                self.camera.release()
                 cv2.destroyAllWindows()
                 break
 
