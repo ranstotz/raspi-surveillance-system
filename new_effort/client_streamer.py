@@ -7,12 +7,13 @@ import time
 
 print "Initiallizing context and socket."
 context = zmq.Context()
-footage_socket = context. socket(zmq.PUB)
+footage_socket = context.socket(zmq.PUB)
+print type(footage_socket)
 print "Context and socket initialized. \nBinding to port."
 #footage_socket.connect('tcp://localhost:5555')
 footage_socket.connect('tcp://18.214.123.134:5050')
 print "Port initialized.\n"
-
+ 
 print "Initializing camera."
 camera = PiCamera()
 camera.resolution = (640, 480)

@@ -6,6 +6,7 @@ import numpy as np
 print "Initiallizing context and socket."
 context = zmq.Context()
 footage_socket = context.socket(zmq.SUB)
+print type(footage_socket)
 print "Context and socket initialized. \nBinding to port."
 footage_socket.bind('tcp://*:5050')
 footage_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
