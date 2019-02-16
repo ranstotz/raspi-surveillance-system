@@ -22,6 +22,10 @@ and have a nice intereface!
 ## *** new_effort reference ***:
 https://raspberrypi.stackexchange.com/questions/72308/how-to-stream-video-via-socket-using-opencv-and-picamera
 
+Stream over browser:
+http://manmade2.com/simple-home-surveillance-with-opencv-python-and-raspberry-pi/
+
+
 ## A few References:
 
 Router IP:
