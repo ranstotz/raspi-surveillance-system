@@ -12,8 +12,7 @@ class serverViewer(object):
         
         print "Initiallizing context and socket."
         self.context = zmq.Context()
-        self.footage_socket = context.socket(zmq.SUB)
-        print type(footage_socket)
+        self.footage_socket = self.context.socket(zmq.SUB)
         print "Context and socket initialized. \nBinding to port."
         self.footage_socket.bind('tcp://*:5050')
         self.footage_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
@@ -30,7 +29,7 @@ class serverViewer(object):
                 img = base64.b64decode(frame)
                 npimg = np.fromstring(img, dtype=np.uint8)
                 source = cv2.imdecode(npimg, 1)
-                #cv2.imshow("Stream", source)
+                cv2.imshow("Stream", source)
                 cv2.waitKey(1)
                 print "captured data"
                 
