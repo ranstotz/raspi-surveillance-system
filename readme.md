@@ -9,23 +9,17 @@ for the Pi will be written in Python using the OpenCV library for video
 recording and storage and an HTTP library for streaming. 
 
 ## Progress
-Camera currently streams frames via socket over the localhost. A client
-and server script are used for this implementation.
+Created successful stream. Appears to be sending full video through socket in
+new_effort. Next step is to put the scripts into classes, then import them
+into Flask to serve on the website. After that, make it password protected,
+and have a nice intereface!
 
-Next goal is to send data to web server, store frames in 24-hour increments
-and allow live streaming on website when requested.
-
-Currently have a "working" model. Socket is created from server to client.
-Some sort of data is transmitted, however the data appears to be
-coming in slowly from first glance. Also, the struct 32 vs 64 bit was
-resolved by changing the "L" to "=L".
-
-Next, the images will need to be saved, then rsync'd to my local
-machine for examination. More debugging required.
-
-Put config files in /etc/ for port/ip.
-
-*** new_effort reference ***:
+- Put config files in /etc/ for port/ip.
+~
+~
+~
+===========================================================================
+## *** new_effort reference ***:
 https://raspberrypi.stackexchange.com/questions/72308/how-to-stream-video-via-socket-using-opencv-and-picamera
 
 ## A few References:
