@@ -3,14 +3,23 @@ import zmq
 import base64
 import numpy as np
 
+print "Initiallizing context and socket"
 context = zmq.Context()
 footage_socket = context.socket(zmq.SUB)
-footage_socket.bind('tcp://*:8080')
-footage_socket.setsockopt_string(zmq.subscribe, np.unicode(''))
+print "Context and socket initialized. \nBinding to port."
+footage_socket.bind('tcp://*:5555')
+footage_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
+print"Port initialized.\n"
+
+connectionFlag = False
 
 while True:
+    
     try:
         frame = footage_socket.recv_string()
+        if connectionFlag == False:
+            print "Connection made!\n"
+            connectionFlag = True
         img = base64.b64decode(frame)
         npimg = np.fromstring(img, dtype=np.uint8)
         source = cv2.imdecode(npimg, 1)
