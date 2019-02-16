@@ -55,8 +55,12 @@ def main(argv):
     
     # data prep. 'L' stands for unsigned long
     data = ""
-    payload_size = struct.calcsize("=L")
-    print "payload_size is: ", payload_size
+    payload_size = struct.calcsize('=L')
+    print "payload_size is: ", sys.getsizeof(payload_size), "type is: ", type(payload_size)
+
+    payload_size1 = struct.calcsize('=L')
+    print "payload_size is: ", sys.getsizeof(payload_size1)
+
     
     # a test flag that will print something upon success
     accepted_flag = False
@@ -67,7 +71,8 @@ def main(argv):
         # get and process the payload
         while len(data) < payload_size:
             data += conn.recv(4096)
-        print "len of data is: ", len(data)
+            print "len of data is: ", len(data)
+
         
         packed_msg_size = data[:payload_size]
         data = data[payload_size:]

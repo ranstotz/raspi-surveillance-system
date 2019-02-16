@@ -23,6 +23,10 @@ resolved by changing the "L" to "=L".
 Next, the images will need to be saved, then rsync'd to my local
 machine for examination. More debugging required.
 
+Put config files in /etc/ for port/ip.
+
+*** new_effort reference ***:
+https://raspberrypi.stackexchange.com/questions/72308/how-to-stream-video-via-socket-using-opencv-and-picamera
 
 ## A few References:
 
