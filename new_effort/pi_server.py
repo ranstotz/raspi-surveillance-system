@@ -29,8 +29,8 @@ class serverViewer(object):
                 img = base64.b64decode(frame)
                 npimg = np.fromstring(img, dtype=np.uint8)
                 source = cv2.imdecode(npimg, 1)
-                cv2.imshow("Stream", source)
-                cv2.waitKey(1)
+                #cv2.imshow("Stream", source)
+                #cv2.waitKey(1)
                 print "captured data"
                 
             except KeyboardInterrupt:
@@ -44,12 +44,12 @@ class serverViewer(object):
             npimg = np.fromstring(img, dtype=np.uint8)
             source = cv2.imdecode(npimg, 1)
             temp = open("stream.jpg", 'wb+')
-            if source:
-                cv2.imwrite("stream.jpg", source)
+            cv2.imwrite("stream.jpg", npimg)
+            print "captured data"
             return source
         
         except KeyboardInterrupt:
             cv2.destroyAllWindows()
-            break
+            
         
     
