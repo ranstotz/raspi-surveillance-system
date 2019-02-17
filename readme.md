@@ -14,6 +14,10 @@ new_effort. Next step is to put the scripts into classes, then import them
 into Flask to serve on the website. After that, make it password protected,
 and have a nice intereface!
 
+## Next steps
+Correct the pi_server class, get_frames() method. Needs to return correct values
+and write as expected.
+
 - Put config files in /etc/ for port/ip.
 ~
 ~
@@ -24,7 +28,7 @@ https://raspberrypi.stackexchange.com/questions/72308/how-to-stream-video-via-so
 
 Stream over browser:
 http://manmade2.com/simple-home-surveillance-with-opencv-python-and-raspberry-pi/
-
+https://blog.miguelgrinberg.com/post/video-streaming-with-flask
 
 ## A few References:
 
