@@ -37,5 +37,19 @@ class serverViewer(object):
                 cv2.destroyAllWindows()
                 break
     
-
+    def get_frame(self):
+        try:
+            frame = self.footage_socket.recv_string()
+            img = base64.b64decode(frame)
+            npimg = np.fromstring(img, dtype=np.uint8)
+            source = cv2.imdecode(npimg, 1)
+            temp = open("stream.jpg", 'wb+')
+            if source:
+                cv2.imwrite("stream.jpg", source)
+            return source
+        
+        except KeyboardInterrupt:
+            cv2.destroyAllWindows()
+            break
+        
     
