@@ -26,6 +26,12 @@ and write as expected.
 ## *** new_effort reference ***:
 https://raspberrypi.stackexchange.com/questions/72308/how-to-stream-video-via-socket-using-opencv-and-picamera
 
+## reference for bytes error and byte information
+https://stackoverflow.com/questions/40060653/python-screen-capture-error 
+https://stackoverflow.com/questions/40928205/python-opencv-image-to-byte-string-for-json-transfer
+https://github.com/TileStache/TileStache/issues/329
+
+
 Stream over browser:
 http://manmade2.com/simple-home-surveillance-with-opencv-python-and-raspberry-pi/
 https://blog.miguelgrinberg.com/post/video-streaming-with-flask

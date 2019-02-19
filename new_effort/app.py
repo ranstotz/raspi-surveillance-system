@@ -1,5 +1,6 @@
+
 from werkzeug.wrappers import Request
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, stream_with_context
 
 # emulated camera
 #from camera import Camera

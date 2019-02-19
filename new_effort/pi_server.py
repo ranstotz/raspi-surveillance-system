@@ -44,11 +44,12 @@ class serverViewer(object):
             img = base64.b64decode(frame)
             npimg = np.fromstring(img, dtype=np.uint8)
             source = cv2.imdecode(npimg, 1)
+
             cv2.imwrite("stream.jpg", source)
             return self.frames.read()
         
-        except KeyboardInterrupt:
-            cv2.destroyAllWindows()
+        except:
+            pass
             
         
     
