@@ -39,14 +39,13 @@ class serverViewer(object):
     
     def get_frame(self):
         try:
+            self.frames = open("stream.jpg", 'wb+')
             frame = self.footage_socket.recv_string()
             img = base64.b64decode(frame)
             npimg = np.fromstring(img, dtype=np.uint8)
             source = cv2.imdecode(npimg, 1)
-            temp = open("stream.jpg", 'wb+')
-            cv2.imwrite("stream.jpg", npimg)
-            print "captured data"
-            return source
+            cv2.imwrite("stream.jpg", source)
+            return self.frames.read()
         
         except KeyboardInterrupt:
             cv2.destroyAllWindows()
