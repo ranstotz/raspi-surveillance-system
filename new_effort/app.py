@@ -9,7 +9,7 @@ from pi_server import serverViewer
 # If you are using a webcam -> no need for changes
 # if you are using the Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
-server = serverViewer("non", "sense")
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -23,12 +23,12 @@ def gen(camera):
     while True:
         frame = camera.get_frame()
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + bytearray(frame) + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(server),
+    return Response(gen(serverViewer("non", "sense")),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
