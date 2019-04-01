@@ -1,6 +1,8 @@
 # Surveillance Project Data
 ## Author: Ryan Anstotz
 
+Note: stream-video.py is the driver script.
+
 The goal of this project is to use a Raspberry Pi 3+ to record a surveillance
 video feed. Then the Pi will send the video via HTTP stream to a separate
 server. This server will store the video in 24-hour increments and provide
