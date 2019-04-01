@@ -14,8 +14,8 @@ class clientStreamer(object):
         self.context = zmq.Context()
         self.footage_socket = self.context.socket(zmq.PUB)
         print "Context and socket initialized. \nBinding to port."
-        self.footage_socket.connect('tcp://localhost:5050')
-        #self.footage_socket.connect('tcp://18.214.123.134:5050')
+        #self.footage_socket.connect('tcp://localhost:5050')
+        self.footage_socket.connect('tcp://18.214.123.134:5050')
         print "Port initialized.\n"
         self.camera = ""
         self.rawCapture = ""
