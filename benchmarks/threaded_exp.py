@@ -37,16 +37,15 @@ def main(argv):
                                        use_video_port=True)
     '''
     print "starting stream object" 
-    vs = PiVideoStream().start()
+    vs = PiVideoStream((1280, 720), 30).start()
     fps = FPS().start()
     
     # warm up camera
     time.sleep(0.8)
     print "Starting threaded video capture... "
     
-    start = time.time()
+
     frameCounter = 0
-    
     # capture frames from camera
     while fps._numFrames < args["frames"]:
         frame = vs.read()
@@ -55,8 +54,6 @@ def main(argv):
         cv2.imwrite(file_name, frame)
         frameCounter += 1
     fps.stop()
-    end = time.time()
-    elapsed_time = end - start
 
     print "frames: ", fps._numFrames
     print "time:   ", fps.elapsed()
