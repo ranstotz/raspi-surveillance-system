@@ -14,13 +14,14 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time 
 import cv2
+import numpy as np
 import argparse
 import threading
 
 
 def write_files(cv):
     global shared_buffer
-
+    global condition
     condition.acquire()
     while len(shared_buffer) == 0:
         condition.wait()
@@ -31,9 +32,12 @@ def write_files(cv):
 
     
 # main function
-def main(cv, argv):
-
+def main(argv):
+    
     global shared_buffer
+    condition = threading.Condition()
+    writer_thread = threading.Thread(target=write_files, args=(condition,))
+    writer_thread.start()
     
     # get args
     ap = argparse.ArgumentParser()
@@ -59,26 +63,31 @@ def main(cv, argv):
     # warm up camera
     time.sleep(0.8)
     print "Starting threaded video capture... "
-
-    # initialize file-writing thread
-    fw_t = threading.Thread(target=write_files)
     
     file_name = ""
     frameCounter = 0
+    newFrames = 0
     # capture frames from camera
     while fps._numFrames < args["frames"]:
         frame = vs.read()
+        print "type of frame: ", type(frame)
         fps.update()
         print "length buf: ", len(shared_buffer)
         file_name = "output/test" + str(frameCounter) + ".jpg"
-        condition.acquire()
+        #condition.acquire()
+        if len(shared_buffer) >= 1:
+            if np.array_equal(frame, shared_buffer[-1][1]):
+                newFrames += 1
+        
         shared_buffer.append((file_name, frame))
-        condition.notify()
-        condition.release()
+        #condition.notify()
+        #condition.release()
         frameCounter += 1
 
     fps.stop()
-
+    vs.stop()
+    print "frameCounter: ", frameCounter
+    print "newFrames: ", newFrames
     print "frames: ", fps._numFrames
     print "time:   ", fps.elapsed()
     print "FPS:    ", fps.fps()
@@ -88,13 +97,4 @@ def main(cv, argv):
 
 if __name__ == "__main__":
     shared_buffer = []
-    condition = threading.Condition()
-    main_thread = threading.Thread(target=main, args=(condition, sys.argv[:],))
-    writer_thread = threading.Thread(target=write_files, args=(condition,))
-
-    main_thread.start()
-    writer_thread.start()
-    
-
-
-
+    main(sys.argv[:])
