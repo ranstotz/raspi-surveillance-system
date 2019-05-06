@@ -14,11 +14,12 @@ class clientStreamer(object):
 
         print "Initiallizing context and socket."
         self.context = zmq.Context()
+        print "Context created..."
         self.footage_socket = self.context.socket(zmq.PUB)
-        print "Context and socket initialized. \nBinding to port."
+        print "Socket initialized."
         #self.footage_socket.connect('tcp://localhost:5050')    # local testing
         self.footage_socket.connect('tcp://18.214.123.134:5050')
-        print "Port initialized.\n"
+        print "Port initialized and waiting on connection...\n"
         self.camera = ""
         self.rawCapture = ""
         
@@ -32,9 +33,13 @@ class clientStreamer(object):
         print "Camera initialized."
     
     def begin_stream(self):
-        
+
+        test_bool = False
         for frame in self.camera.capture_continuous(self.rawCapture, format="bgr",
                                                use_video_port=True):
+            if test_bool == False:
+                print "connection? "
+                test_bool = True
             try:
                 image = frame.array
                 encoded, buffer = cv2.imencode('.jpg', image)
