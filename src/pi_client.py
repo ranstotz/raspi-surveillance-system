@@ -70,5 +70,6 @@ class ClientStreamer(object):
         encoded, buffer = cv2.imencode('.jpg', image)
         jpg_as_text = base64.b64encode(buffer)
         self.footage_socket.send(jpg_as_text)
-        self.rawCapture.truncate(0)
+        
+        
 
