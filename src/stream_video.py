@@ -1,11 +1,11 @@
 import sys
 import os
 
-from pi_client import clientStreamer
+from pi_client import ClientStreamer
 
 def main(argv):
 
-    client = clientStreamer()
+    client = ClientStreamer()
     
     client.connect_streaming_socket("18.214.123.134", "5050")
     '''

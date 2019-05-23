@@ -6,7 +6,7 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
 
-class clientStreamer(object):
+class ClientStreamer(object):
     ''' clientStreamer '''
 
     def __init__(self):
@@ -64,5 +64,11 @@ class clientStreamer(object):
                 cv2.destroyAllWindows()
                 break
 
-
+    def encode_and_send_image(self, frame):
+        ''' this is to make capture_continuous for-loop in outside function. '''
+        image = frame.array
+        encoded, buffer = cv2.imencode('.jpg', image)
+        jpg_as_text = base64.b64encode(buffer)
+        self.footage_socket.send(jpg_as_text)
+        self.rawCapture.truncate(0)
 
