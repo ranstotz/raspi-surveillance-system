@@ -12,7 +12,6 @@ class ClientStreamer(object):
     def __init__(self):
 
         self.footage_socket = zmq.Context().socket(zmq.PUB)
-        self.messaging_socket = zmq.Context().socket(zmq.SUB)
         self.camera = ""
         self.rawCapture = ""
 
@@ -21,19 +20,6 @@ class ClientStreamer(object):
         #self.footage_socket.connect('tcp://18.214.123.134:5050')
         self.footage_socket.connect(connection_address)
 
-    def connect_messaging_socket(self, ip, port):
-        connection_address = 'tcp://' + ip + ':' + port
-        self.messaging_socket.bind(connection_address)
-        self.messaging_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode('')) 
-
-    def receive_message(self):
-        try: 
-            message = self.messaging_socket.recv_string()
-        except:
-            pass
-            
-        return message
-        
     def start_camera(self):
         print "Initializing camera..."
         self.camera = PiCamera()
@@ -62,6 +48,7 @@ class ClientStreamer(object):
             except KeyboardInterrupt:
                 self.camera.release()
                 cv2.destroyAllWindows()
+                sys.exit()
                 break
 
     def encode_and_send_image(self, frame):

@@ -2,25 +2,45 @@ import sys
 import os
 import time
 import threading
-import socket
+import zmq
+import numpy as np
 
 from pi_client import ClientStreamer
 from message_receiver import MessageReceiver
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connection_flag = False
+messaging_socket = zmq.Context().socket(zmq.SUB)
+messaging_socket.bind('tcp://*:5051')
+#messaging_socket.bind('tcp://18.214.123.134:5051')
+messaging_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
+
+while True:
+    try:
+        incoming_message = messaging_socket.recv_string()
+        print incoming_message
+    except:
+        pass
 
 def messaging_thread():
-    global sock
-    global connection_flag
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)    
-    sock.bind(('', 5051))
-    while True:
 
-        sock.listen(1)
-        conn, address = sock.accept()
+    global connection_flag
+    messaging_socket = zmq.Context().socket(zmq.SUB)
+    messaging_socket.connect('tcp://18.214.123.134:5051')
+    messaging_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
+
+    listening = False
+    incoming_message = ''
+    while True:
+        
+        if listening == False:
+            print "listening..."
+            listening = True
+
         try:
-            incoming_message = conn.recv(1024)
+            incoming_message = messaging_socket.recv_string()
+            print incoming_message
+            if incoming_message != '':
+                print "incoming message is: ", incoming_message
             if incoming_message == "connected":
                 connection_flag = True
                 print "message received, connection: ", connection_flag
@@ -28,7 +48,7 @@ def messaging_thread():
                 # note that it doesn't make it here, server fails to send message
                 connection_flag = False
                 print "message received, connection: ", connection_flag
-                conn.close()
+    
         except:
             print "exception thrown in message thread"
             pass
@@ -39,15 +59,10 @@ def main(argv):
     print "starting script"
     client = ClientStreamer()
 
-
-
     message_thread = threading.Thread(target=messaging_thread)
     message_thread.start()
     
     client.connect_streaming_socket("18.214.123.134", "5050")
-    '''
-    message_receiver.connect_messaging_socket('', 5051)
-    ''' 
     client.start_camera()
     print "camera initialized"
     # start stream
@@ -57,8 +72,8 @@ def main(argv):
         
         try:
 
-            if connection_flag == True:
-                client.encode_and_send_image(frame)
+            #if connection_flag == True:
+            client.encode_and_send_image(frame)
             client.rawCapture.truncate(0)
             
         except KeyboardInterrupt:
