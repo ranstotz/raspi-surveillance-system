@@ -16,7 +16,7 @@ def message_handler():
 
     connected = "connected"
     disconnected = "disconnected"
-    
+
     print "message handler thread started"
     messaging_socket = zmq.Context().socket(zmq.SUB)
     messaging_socket.bind('tcp://*:5051')
