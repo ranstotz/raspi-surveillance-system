@@ -17,7 +17,6 @@ def message_handler():
     connected = "connected"
     disconnected = "disconnected"
 
-    print "message handler thread started"
     messaging_socket = zmq.Context().socket(zmq.SUB)
     messaging_socket.bind('tcp://*:5051')
     messaging_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
@@ -25,17 +24,12 @@ def message_handler():
     while not exit_signal.is_set():
         try:
             incoming_message = messaging_socket.recv_string()
-            print "received message: ", incoming_message
             if incoming_message == connected:
                 connection_flag = True
-                print "connected"
             elif incoming_message == disconnected:
                 connection_flag = False
-                print "disconnected"
         except:
             pass
-
-    print "exiting messaging thread"
     return
 
             
@@ -43,14 +37,10 @@ def main(argv):
 
     global connection_flag
     global exit_signal
-    
-    print "main thread started"
+
     client = ClientStreamer()
-    print "client object"
     client.connect_streaming_socket("18.214.123.134", "5050")
-    print "connected socket"
     client.start_camera()
-    print "camera initialized"
 
     # start stream
     for frame in client.camera.capture_continuous(client.rawCapture, format="bgr",
@@ -58,17 +48,14 @@ def main(argv):
         
         try:
             if exit_signal.is_set():
-                print "camera shutdown"
                 break
             if connection_flag == True:
                 client.encode_and_send_image(frame)
             client.rawCapture.truncate(0)
             
         except:
-            print "camera exception"
             break
-        
-    print "exiting main thread"
+
     return
         
 if __name__ == "__main__":
@@ -89,13 +76,6 @@ if __name__ == "__main__":
             time.sleep(0.2)
     
     except KeyboardInterrupt:
-        print "exit signal set"
         exit_signal.set()
 
     print "exit script"
-
-
-    
-    
-        
-    
